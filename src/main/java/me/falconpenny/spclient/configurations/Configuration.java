@@ -25,7 +25,8 @@ public class Configuration implements IConfiguration {
 
     @Override
     public void exit() {
-        configuration.save();
+        if (configuration.hasChanged())
+            configuration.save();
     }
 
     @Override
