@@ -1,7 +1,7 @@
 package me.falconpenny.spclient.modules;
 
 import lombok.Getter;
-import me.falconpenny.spclient.configurations.RootConfiguration;
+import me.falconpenny.spclient.configuration.Configuration;
 import me.falconpenny.spclient.utils.Conditionals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
@@ -37,26 +37,14 @@ public class ModuleHandler {
 
     @SubscribeEvent
     public void keyToggle(InputEvent.KeyInputEvent event) {
-        if (!Keyboard.getEventKeyState() || Keyboard.getEventKey() == 0) {
+        if (!Keyboard.getEventKeyState() || Keyboard.getEventKey() == 0 || Keyboard.getEventKey() == Keyboard.KEY_BACK) {
             return;
         }
-        modules.stream().filter(module -> module.key() == Keyboard.getEventKey()).findFirst().ifPresent(module -> {
+        modules.stream().filter(module -> Configuration.getInstance().getKeybinds().containsKey(module.name()) && Configuration.getInstance().getKeybinds().get(module.name()).getInt(0) == Keyboard.getEventKey()).findFirst().ifPresent(module -> {
             module.toggle();
-            if (RootConfiguration.getInstance().getMessages().config().getBoolean(
-                    "toggle-notify",
-                    "switches",
-                    true,
-                    "Whether or not to automatically send toggle messages to the user.",
-                    "Message upon module toggle"
-            )) {
+            if (Configuration.getInstance().getSwitches().get("toggle-notify").getBoolean()) {
                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
-                        RootConfiguration.getInstance().getMessages().config().getString(
-                                "toggle-message",
-                                "messages",
-                                " \u2666 The module $MODULE has been toggled to the state of $STATE.",
-                                "What the toggle message should be.",
-                                "Message upon toggle"
-                        )
+                        Configuration.getInstance().getMessages().get("toggle-message").getString()
                                 .replace("$MODULE", Conditionals.withDefault(module.name(), "Undefined name."))
                                 .replace("$STATE", module.state() ? "enabled" : "disabled")
                 ).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));

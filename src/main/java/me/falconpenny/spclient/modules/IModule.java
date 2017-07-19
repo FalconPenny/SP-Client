@@ -16,8 +16,6 @@ public interface IModule {
     @Nullable
     String[] aliases();
 
-    int key();
-
     @NonNull
     Map<Class<? extends Event>, EventHandler<? extends Event>> eventhandlers();
 

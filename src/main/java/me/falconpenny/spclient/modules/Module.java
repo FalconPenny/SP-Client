@@ -23,11 +23,6 @@ public abstract class Module implements IModule {
     }
 
     @Override
-    public int key() {
-        return 0;
-    }
-
-    @Override
     public Map<Class<? extends Event>, EventHandler<? extends Event>> eventhandlers() {
         return handlers;
     }
