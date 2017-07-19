@@ -18,7 +18,8 @@ public interface IModule {
 
     int key();
 
-    @NonNull Map<Class<? extends Event>, EventHandler<? extends Event>> eventhandlers();
+    @NonNull
+    Map<Class<? extends Event>, EventHandler<? extends Event>> eventhandlers();
 
     default <T extends Event> void addHandler(Class<T> type, EventHandler<T> implementation) {
         eventhandlers().put(type, implementation);

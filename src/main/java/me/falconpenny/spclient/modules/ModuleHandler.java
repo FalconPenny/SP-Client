@@ -57,8 +57,8 @@ public class ModuleHandler {
                                 "What the toggle message should be.",
                                 "Message upon toggle"
                         )
-                        .replace("$MODULE", Conditionals.withDefault(module.name(), "Undefined name."))
-                        .replace("$STATE", module.state() ? "enabled" : "disabled")
+                                .replace("$MODULE", Conditionals.withDefault(module.name(), "Undefined name."))
+                                .replace("$STATE", module.state() ? "enabled" : "disabled")
                 ).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
             }
         });

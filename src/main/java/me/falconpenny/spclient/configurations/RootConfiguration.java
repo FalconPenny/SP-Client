@@ -16,6 +16,9 @@ public class RootConfiguration {
     @Getter
     private Configuration messages = new Configuration(new File(dataFolder, "Messages.conf"));
 
+    private RootConfiguration() {
+    }
+
     public void init() {
         if (!dataFolder.exists() || !dataFolder.isDirectory()) {
             Logging.info("DataFolder doesn't exist. Trying to make: " + (dataFolder.mkdirs() ? "Success!" : "Failure!"));
@@ -27,8 +30,5 @@ public class RootConfiguration {
     public void exit() {
         messages.init();
         keybinds.exit();
-    }
-
-    private RootConfiguration() {
     }
 }
