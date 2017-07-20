@@ -1,6 +1,7 @@
 package me.falconpenny.spclient.modules;
 
 import lombok.NonNull;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 import javax.annotation.Nullable;
@@ -12,6 +13,16 @@ public interface IModule {
 
     @Nullable
     String name();
+
+    @NonNull
+    default String localizedName() {
+        String name = name();
+        if (name == null) {
+            return "Undefined Module Name";
+        }
+        String key = "spclient.modules.localization." + name.toLowerCase();
+        return StatCollector.canTranslate(key) ? StatCollector.translateToLocal(key) : name;
+    }
 
     @Nullable
     String[] aliases();

@@ -1,7 +1,7 @@
 package me.falconpenny.spclient.modules;
 
 import lombok.Getter;
-import me.falconpenny.spclient.configuration.Configuration;
+import me.falconpenny.spclient.config.Config;
 import me.falconpenny.spclient.utils.Conditionals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
@@ -40,11 +40,11 @@ public class ModuleHandler {
         if (!Keyboard.getEventKeyState() || Keyboard.getEventKey() == 0 || Keyboard.getEventKey() == Keyboard.KEY_BACK) {
             return;
         }
-        modules.stream().filter(module -> Configuration.getInstance().getKeybinds().containsKey(module.name()) && Configuration.getInstance().getKeybinds().get(module.name()).getInt(0) == Keyboard.getEventKey()).findFirst().ifPresent(module -> {
+        modules.stream().filter(module -> Config.getInstance().getConfig().getCategory(Config.getCategory_keybinds()).get(module.name()).getInt(0) == Keyboard.getEventKey()).findFirst().ifPresent(module -> {
             module.toggle();
-            if (Configuration.getInstance().getSwitches().get("toggle-notify").getBoolean()) {
+            if (Config.getInstance().isSwitchTogglenotify()) {
                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
-                        Configuration.getInstance().getMessages().get("toggle-message").getString()
+                        Config.getInstance().getMessageTogglemessage()
                                 .replace("$MODULE", Conditionals.withDefault(module.name(), "Undefined name."))
                                 .replace("$STATE", module.state() ? "enabled" : "disabled")
                 ).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));

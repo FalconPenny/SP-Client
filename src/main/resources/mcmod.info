@@ -1,0 +1,6 @@
+[{
+  "modid": "spclient",
+  "name": "Superpositional Client",
+  "description": "\"Ghost\" client for Forge.",
+  "authorList": ["FalconPenny"]
+}]
