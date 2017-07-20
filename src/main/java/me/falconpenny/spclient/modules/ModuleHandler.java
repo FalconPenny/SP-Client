@@ -2,7 +2,6 @@ package me.falconpenny.spclient.modules;
 
 import lombok.Getter;
 import me.falconpenny.spclient.config.Config;
-import me.falconpenny.spclient.utils.Conditionals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -45,7 +44,7 @@ public class ModuleHandler {
             if (Config.getInstance().isSwitchTogglenotify()) {
                 Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
                         Config.getInstance().getMessageTogglemessage()
-                                .replace("$MODULE", Conditionals.withDefault(module.name(), "Undefined name."))
+                                .replace("$MODULE", module.localizedName())
                                 .replace("$STATE", module.state() ? "enabled" : "disabled")
                 ).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GREEN)));
             }
