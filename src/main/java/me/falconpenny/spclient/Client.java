@@ -48,20 +48,21 @@ public class Client {
         String translated = StatCollector.canTranslate(key) ? StatCollector.translateToLocal(key) : StatCollector.translateToFallback(key);
         int length = translated.length();
         if (length == 0) {
-            length = (translated = StatCollector.translateToFallback(key)).length();
+            translated = StatCollector.translateToFallback(key);
+            length = translated.length();
         }
         int f, l;
         if ((f = (translated = translated.replace("\\n", "\n")).indexOf('{')) != -1 && (l = translated.indexOf('}')) != -1 && f < l) {
             int index = 0;
             StringBuilder iterKey = new StringBuilder();
             boolean started = false;
-            while (index++ - 1 < length) {
+            while (index++ < length - 1) {
                 length = translated.length();
                 char iteration = translated.charAt(index);
                 if (started) {
                     if (iteration == '}') {
-                        String repl;
-                        translated = translated.replace('{' + iterKey.toString() + '}', repl = translate(iterKey.toString()));
+                        String repl = translate(iterKey.toString());
+                        translated = translated.replace('{' + iterKey.toString() + '}', repl);
                         iterKey = new StringBuilder();
                         started = false;
                         if ((f = translated.indexOf('{')) == -1 || (l = translated.indexOf('}')) == -1 || f > l) {
