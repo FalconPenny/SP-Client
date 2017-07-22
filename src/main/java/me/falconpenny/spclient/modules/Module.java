@@ -1,5 +1,6 @@
 package me.falconpenny.spclient.modules;
 
+import lombok.Setter;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 import javax.annotation.Nullable;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 public abstract class Module implements IModule {
     private final Map<Class<? extends Event>, EventHandler<? extends Event>> handlers = new LinkedHashMap<>();
+    @Setter
     private boolean state = false;
 
     @Nullable
