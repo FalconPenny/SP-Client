@@ -68,7 +68,7 @@ public class Config {
                 if (name == null) {
                     continue;
                 }
-                keybinds.put(module, new KeyBinding(StatCollector.canTranslate("spclient.keybinds.module." + name.toLowerCase()) ? "spclient.keybinds.module." + name.toLowerCase() : "MODULE: " + name, p.getInt(), "spclient.keybinds.category"));
+                keybinds.put(module, new KeyBinding(StatCollector.canTranslate("spclient.keybinds.module." + name.toLowerCase()) ? "spclient.keybinds.module." + name.toLowerCase() : "MODULE: " + name, p.getInt(0), "spclient.keybinds.category"));
             }
         }
     }

@@ -10,7 +10,6 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class ModuleHandler {
@@ -26,12 +25,12 @@ public class ModuleHandler {
 
     public void init() {
         FMLCommonHandler.instance().bus().register(this);
-        modules.stream().map(IModule::eventhandlers).forEach(handlers -> handlers.entrySet().stream().map(Map.Entry::getValue).forEach(FMLCommonHandler.instance().bus()::register));
+        modules.forEach(FMLCommonHandler.instance().bus()::register);
     }
 
     public void exit() {
         FMLCommonHandler.instance().bus().unregister(this);
-        modules.stream().map(IModule::eventhandlers).forEach(handlers -> handlers.entrySet().stream().map(Map.Entry::getValue).forEach(FMLCommonHandler.instance().bus()::unregister));
+        modules.forEach(FMLCommonHandler.instance().bus()::unregister);
     }
 
     @SubscribeEvent

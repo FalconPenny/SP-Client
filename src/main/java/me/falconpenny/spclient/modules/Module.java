@@ -1,32 +1,42 @@
 package me.falconpenny.spclient.modules;
 
+import lombok.Getter;
 import lombok.Setter;
-import net.minecraftforge.fml.common.eventhandler.Event;
 
 import javax.annotation.Nullable;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public abstract class Module implements IModule {
-    private final Map<Class<? extends Event>, EventHandler<? extends Event>> handlers = new LinkedHashMap<>();
+    @Nullable
+    @Getter
+    private final ModuleData moduleDataAnnotation = getClass().getAnnotation(ModuleData.class);
     @Setter
     private boolean state = false;
 
     @Nullable
     @Override
+    public String name() {
+        if (moduleDataAnnotation != null) {
+            return moduleDataAnnotation.name();
+        }
+        return null;
+    }
+
+    @Nullable
+    @Override
     public String description() {
+        if (moduleDataAnnotation != null) {
+            return moduleDataAnnotation.description();
+        }
         return null;
     }
 
     @Nullable
     @Override
     public String[] aliases() {
+        if (moduleDataAnnotation != null) {
+            return moduleDataAnnotation.aliases();
+        }
         return new String[0];
-    }
-
-    @Override
-    public Map<Class<? extends Event>, EventHandler<? extends Event>> eventhandlers() {
-        return handlers;
     }
 
     @Override

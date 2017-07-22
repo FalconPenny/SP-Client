@@ -1,5 +1,6 @@
 # CONFIG
 spclient.config.title=Superpositional Client Configuration
+spclient.keybinds.category=Superpositional Client Modules
 spclient.config.category.Switches=Switches
 spclient.config.category.Keybinds=Keybinds
 spclient.config.category.Messages=Messages
@@ -9,10 +10,11 @@ spclient.config.category.comment.messages=Custom messages in the mod.
 spclient.config.category.comment.keybinds=Keybinds for the modules.
 spclient.config.switches.comment.toggle-notify=This sets whether or not the client will notify you with a message upon module toggling.
 spclient.config.messages.comment.toggle-message=This sets the actual message displayed to you upon module toggling.\n"{spclient.config.category.Switches} > {spclient.config.switches.toggle-notify}" must be on.
+spclient.config.keybinds.comment=Toggle bind for $MODULE.
 
 spclient.config.messages.default.toggle-message= \u2666 The module $MODULE has been toggled to the state of $STATE.
 
 spclient.config.messages.toggle-message=Message upon toggle
 spclient.config.switches.toggle-notify=Toggle message notifications?
 
-spclient.keybinds.category=Superpositional Client Modules
+spclient.keybinds.module.fullbright=Fullbright
