@@ -1,6 +1,7 @@
 # CONFIG
 spclient.config.title=Superpositional Client Configuration
-spclient.keybinds.category=Superpositional Client Modules
+spclient.keybinds.category=Superpositional Client Keybinds
+# Dynamic so IntelliJ will mark it as unused.
 spclient.config.category.Switches=Switches
 spclient.config.category.Keybinds=Keybinds
 spclient.config.category.Messages=Messages
@@ -8,6 +9,7 @@ spclient.config.category.Messages=Messages
 spclient.config.category.comment.switches=Toggles for various stuff in the mod.
 spclient.config.category.comment.messages=Custom messages in the mod.
 spclient.config.category.comment.keybinds=Keybinds for the modules.
+spclient.config.category.comment.options=Options on the actual modules.
 spclient.config.switches.comment.toggle-notify=This sets whether or not the client will notify you with a message upon module toggling.
 spclient.config.messages.comment.toggle-message=This sets the actual message displayed to you upon module toggling.\n"{spclient.config.category.Switches} > {spclient.config.switches.toggle-notify}" must be on.
 spclient.config.keybinds.comment=Toggle bind for $MODULE.
@@ -17,4 +19,11 @@ spclient.config.messages.default.toggle-message= \u2666 The module $MODULE has b
 spclient.config.messages.toggle-message=Message upon toggle
 spclient.config.switches.toggle-notify=Toggle message notifications?
 
+spclient.config.options.comment.mincps=Sets the minimum CPS for the module {spclient.keybinds.module.autoclicker}.
+spclient.config.options.mincps=Min. CPS
+spclient.config.options.comment.maxcps=Sets the maximum CPS for the module {spclient.keybinds.module.autoclicker}.
+spclient.config.options.maxcps=Max. CPS
+
+# Dynamic so IntelliJ will mark it as unused.
 spclient.keybinds.module.fullbright=Fullbright
+spclient.keybinds.module.autoclicker=AutoClicker

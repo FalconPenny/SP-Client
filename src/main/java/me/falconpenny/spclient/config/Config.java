@@ -10,6 +10,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -30,7 +31,8 @@ public class Config {
     private static final String
             category_switches = "Switches",
             category_keybinds = "Keybinds",
-            category_messages = "Messages";
+            category_messages = "Messages",
+            category_options = "Options";
 
     @Getter
     private boolean switchTogglenotify;
@@ -39,6 +41,11 @@ public class Config {
 
     @Getter
     private final Map<IModule, KeyBinding> keybinds = new LinkedHashMap<>();
+
+    @Getter
+    private int minCps;
+    @Getter
+    private int maxCps;
 
     public void init(FMLPreInitializationEvent event) {
         config = new Configuration(event.getSuggestedConfigurationFile());
@@ -51,6 +58,7 @@ public class Config {
         config.addCustomCategoryComment(category_switches, Client.translate("spclient.config.category.comment.switches"));
         config.addCustomCategoryComment(category_messages, Client.translate("spclient.config.category.comment.messages"));
         config.addCustomCategoryComment(category_keybinds, Client.translate("spclient.config.category.comment.keybinds"));
+        config.addCustomCategoryComment(category_options, Client.translate("spclient.config.category.comment.options"));
 
         Property p;
         {
@@ -62,13 +70,22 @@ public class Config {
             messageTogglemessage = p.getString();
         }
         {
+            p = config.get(category_options, "minCps", 7, Client.translate("spclient.config.options.comment.mincps")).setLanguageKey("spclient.config.options.mincps");
+            minCps = p.getInt();
+
+            p = config.get(category_options, "maxCps", 10, Client.translate("spclient.config.options.comment.maxcps")).setLanguageKey("spclient.config.options.maxcps");
+            maxCps = p.getInt();
+        }
+        {
             for (IModule module : ModuleHandler.getHandler().getModules()) {
                 p = config.get(category_keybinds, module.name(), Keyboard.KEY_NONE, Client.translate("spclient.config.keybinds.comment").replace("$MODULE", module.localizedName()));
                 String name = module.name();
                 if (name == null) {
                     continue;
                 }
-                keybinds.put(module, new KeyBinding(StatCollector.canTranslate("spclient.keybinds.module." + name.toLowerCase()) ? "spclient.keybinds.module." + name.toLowerCase() : "MODULE: " + name, p.getInt(0), "spclient.keybinds.category"));
+                KeyBinding key;
+                keybinds.put(module, key = new KeyBinding(StatCollector.canTranslate("spclient.keybinds.module." + name.toLowerCase()) ? "spclient.keybinds.module." + name.toLowerCase() : "MODULE: " + name, p.getInt(0), "spclient.keybinds.category"));
+                ClientRegistry.registerKeyBinding(key);
             }
         }
     }
